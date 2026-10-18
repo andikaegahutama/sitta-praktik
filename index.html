@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .form-hint {
+      font-size: 12px;
+      color: #666666;
+      margin-top: 3px;
+    }
+  </style>
+</head>
+
+<body class="login-body">
+
+  <main class="login-wrapper">
+    <section class="login-box">
+      <header>
+        <h1 class="login-heading">Selamat Datang</h1>
+        <p class="login-sub">SITTA Universitas Terbuka</p>
+      </header>
+
+      <div id="loginAlert" class="alert-message"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="nama@ut.ac.id" required value="rina@ut.ac.id">
+          <p class="form-hint">Email berakhiran @ut.ac.id</p>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="Password" required value="rina123">
+        </div>
+
+        <div style="text-align: right; margin-bottom: 12px;">
+          <button type="button" id="btnLupaPassword" class="link-button">Lupa password ?</button>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" id="btnLogin" class="btn btn-primary btn-block">Masuk</button>
+        </div>
+
+        <div style="font-size: 14px; margin-top: 15px;">
+          Belum punya akun? <button type="button" id="btnDaftar" class="link-button">Daftar</button>
+        </div>
+      </form>
+
+    </section>
+  </main>
+
+  <div id="modalLupaPassword" class="modal">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h3 class="modal-title">Lupa Password</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modalLupaPassword')">&times;</button>
+      </header>
+      <form id="formLupaPassword">
+        <div class="modal-body">
+          <p style="font-size: 14px; color: #555555; margin-bottom: 10px;">
+            Masukkan email untuk menerima link reset password:
+          </p>
+          <div class="form-group">
+            <label for="resetEmail">Email</label>
+            <input type="email" id="resetEmail" class="form-input" placeholder="nama@ut.ac.id" required>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm"
+            onclick="closeModal('modalLupaPassword')">Batal</button>
+          <button type="submit" class="btn btn-navy btn-sm">Kirim</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <div id="modalDaftar" class="modal">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h3 class="modal-title">Daftar Akun Baru</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modalDaftar')">&times;</button>
+      </header>
+      <form id="formDaftar">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="daftarNama">Nama Lengkap</label>
+            <input type="text" id="daftarNama" class="form-input" placeholder="Nama Lengkap" required>
+          </div>
+          <div class="form-group">
+            <label for="daftarEmail">Email (@ut.ac.id)</label>
+            <input type="email" id="daftarEmail" class="form-input" placeholder="nama@ut.ac.id" required>
+          </div>
+          <div class="form-group">
+            <label for="daftarPassword">Password</label>
+            <input type="password" id="daftarPassword" class="form-input" placeholder="Password" required>
+          </div>
+          <div class="form-group">
+            <label for="daftarRole">Role</label>
+            <select id="daftarRole" class="form-input">
+              <option value="UPBJJ-UT">UPBJJ-UT</option>
+              <option value="Puslaba">Puslaba</option>
+              <option value="Fakultas">Fakultas</option>
+              <option value="Administrator">Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="daftarLokasi">Lokasi / UPBJJ</label>
+            <input type="text" id="daftarLokasi" class="form-input" placeholder="Contoh: UPBJJ Bandung" required>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modalDaftar')">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Daftar</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

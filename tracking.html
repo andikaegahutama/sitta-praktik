@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Pengiriman - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sample-btn {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      color: #333333;
+    }
+
+    .sample-btn:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar-header">
+    <div class="navbar-container">
+      <a href="dashboard.html" class="navbar-left">
+        <div class="navbar-brand-text">
+          <h1>SITTA UT</h1>
+          <p>Sistem Pemesanan Bahan Ajar</p>
+        </div>
+      </a>
+
+      <nav class="navbar-center">
+        <ul class="nav-menu">
+          <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="stok.html" class="nav-link">Informasi Bahan Ajar</a></li>
+          <li><a href="tracking.html" class="nav-link active">Tracking Pengiriman</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="nav-link">Laporan</a>
+            <ul class="dropdown-menu">
+              <li><a href="dashboard.html">Monitoring Progress DO</a></li>
+              <li><a href="dashboard.html">Rekap Bahan Ajar</a></li>
+            </ul>
+          </li>
+          <li><a href="dashboard.html" class="nav-link">Histori Transaksi</a></li>
+        </ul>
+      </nav>
+
+      <div class="navbar-right">
+        <div class="navbar-user-text">
+          <span id="greetingText">Selamat Datang</span>, <strong class="current-user-name">Rina Wulandari</strong><br>
+          <span class="current-user-role" style="color: #fdb813; font-size: 12px;">UPBJJ-UT Jakarta</span>
+        </div>
+        <button type="button" class="btn-logout btn-logout-action">Keluar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <section class="card">
+      <header>
+        <h2 class="card-title">Tracking Pengiriman Bahan Ajar</h2>
+      </header>
+      <p style="font-size: 14px; color: #666666; margin-bottom: 12px;">
+        Masukkan nomor Delivery Order (DO) untuk melacak posisi dan progres pengiriman:
+      </p>
+
+      <div class="search-box-row">
+        <input type="text" id="inputNomorDO" class="form-input"
+          placeholder="Masukkan Nomor DO (Contoh: 2023001234 atau 2023005678)">
+        <button type="button" id="btnCariDO" class="btn btn-navy">Cari</button>
+      </div>
+
+      <aside style="margin-top: 8px;">
+        <span style="font-size: 13px; color: #666666;">Pilihan Cepat:</span>
+        <button type="button" class="sample-btn"
+          onclick="document.getElementById('inputNomorDO').value='2023001234'; cariTrackingDO('2023001234');">
+          DO 2023001234 (Rina Wulandari)
+        </button>
+        <button type="button" class="sample-btn"
+          onclick="document.getElementById('inputNomorDO').value='2023005678'; cariTrackingDO('2023005678');">
+          DO 2023005678 (Agus Pranoto)
+        </button>
+      </aside>
+
+      <div id="trackingErrorAlert" class="alert-message alert-danger" style="margin-top: 15px;"></div>
+
+      <section id="trackingResult" class="tracking-result-box" style="display: none;">
+        <header class="tracking-result-header">
+          <div>
+            <h3>Nomor DO: <span id="resNomorDO">-</span></h3>
+          </div>
+          <div>
+            <span id="resStatus" class="badge-tag badge-orange">Status</span>
+          </div>
+        </header>
+
+        <div class="tracking-progress-wrapper">
+          <div style="display: flex; justify-content: space-between; font-size: 14px;">
+            <span>Progres Pengiriman:</span>
+            <span id="resProgressPercent" style="font-weight: bold; color: #003b73;">50%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="resProgressBar" class="progress-bar-fill" style="width: 50%;"></div>
+          </div>
+        </div>
+
+        <div class="tracking-grid">
+          <article class="tracking-grid-item">
+            <label>Nama Mahasiswa</label>
+            <span id="resNama">-</span>
+          </article>
+
+          <article class="tracking-grid-item">
+            <label>Ekspedisi</label>
+            <span id="resEkspedisi">-</span>
+          </article>
+
+          <article class="tracking-grid-item">
+            <label>Tanggal Kirim</label>
+            <span id="resTanggalKirim">-</span>
+          </article>
+
+          <article class="tracking-grid-item">
+            <label>Jenis Paket</label>
+            <span id="resPaket">-</span>
+          </article>
+
+          <article class="tracking-grid-item">
+            <label>Total Pembayaran</label>
+            <span id="resTotal" style="color: #03543f;">-</span>
+          </article>
+        </div>
+
+        <section style="padding: 15px;">
+          <h4 style="font-size: 15px; color: #003b73; margin-bottom: 10px;">Detail Perjalanan Paket:</h4>
+          <ol id="resTimeline" class="timeline-list"></ol>
+        </section>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 Universitas Terbuka - Tugas Praktik 1 Pemrograman Berbasis Web</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

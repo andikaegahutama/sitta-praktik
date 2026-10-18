@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informasi Stok Bahan Ajar - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .stok-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #eeeeee;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar-header">
+    <div class="navbar-container">
+      <a href="dashboard.html" class="navbar-left">
+        <div class="navbar-brand-text">
+          <h1>SITTA UT</h1>
+          <p>Sistem Pemesanan Bahan Ajar</p>
+        </div>
+      </a>
+
+      <nav class="navbar-center">
+        <ul class="nav-menu">
+          <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="stok.html" class="nav-link active">Informasi Bahan Ajar</a></li>
+          <li><a href="tracking.html" class="nav-link">Tracking Pengiriman</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="nav-link">Laporan</a>
+            <ul class="dropdown-menu">
+              <li><a href="dashboard.html">Monitoring Progress DO</a></li>
+              <li><a href="dashboard.html">Rekap Bahan Ajar</a></li>
+            </ul>
+          </li>
+          <li><a href="dashboard.html" class="nav-link">Histori Transaksi</a></li>
+        </ul>
+      </nav>
+
+      <div class="navbar-right">
+        <div class="navbar-user-text">
+          <span id="greetingText">Selamat Datang</span>, <strong class="current-user-name">Rina Wulandari</strong><br>
+          <span class="current-user-role" style="color: #fdb813; font-size: 12px;">UPBJJ-UT Jakarta</span>
+        </div>
+        <button type="button" class="btn-logout btn-logout-action">Keluar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <section class="card">
+      <div class="stok-header-row">
+        <h2 class="card-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">Informasi Stok Bahan
+          Ajar</h2>
+        <button type="button" id="btnBukaTambahStok" class="btn btn-primary btn-sm">Tambah Bahan Ajar</button>
+      </div>
+
+      <div class="search-box-row">
+        <input type="text" id="searchStokInput" class="form-input"
+          placeholder="Cari nama buku, kode mata kuliah, lokasi...">
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 30px;">No</th>
+              <th style="width: 60px;">Cover</th>
+              <th>Kode Lokasi</th>
+              <th>Kode Barang</th>
+              <th>Nama Bahan Ajar</th>
+              <th>Jenis</th>
+              <th style="text-align: center;">Edisi</th>
+              <th>Stok</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tabelStokBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 Universitas Terbuka - Tugas Praktik 1 Pemrograman Berbasis Web</p>
+  </footer>
+
+  <div id="modalTambahStok" class="modal">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h3 class="modal-title">Tambah Bahan Ajar Baru</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modalTambahStok')">&times;</button>
+      </header>
+
+      <form id="formTambahStok">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputKodeLokasi">Kode Lokasi</label>
+            <input type="text" id="inputKodeLokasi" class="form-input" placeholder="Contoh: 0JKT01" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputKodeBarang">Kode Barang</label>
+            <input type="text" id="inputKodeBarang" class="form-input" placeholder="Contoh: STSI4209" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputNamaBarang">Nama Bahan Ajar</label>
+            <input type="text" id="inputNamaBarang" class="form-input" placeholder="Contoh: Pemrograman Berbasis Web"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputJenisBarang">Jenis Barang</label>
+            <select id="inputJenisBarang" class="form-input">
+              <option value="BMP">BMP</option>
+              <option value="Panduan">Panduan</option>
+              <option value="Modul">Modul</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="inputEdisi">Edisi</label>
+            <input type="number" id="inputEdisi" class="form-input" min="1" value="1" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputStok">Jumlah Stok</label>
+            <input type="number" id="inputStok" class="form-input" min="0" placeholder="Contoh: 300" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputCover">Cover Buku</label>
+            <select id="inputCover" class="form-input">
+              <option value="img/pengantar_komunikasi.jpg">Pengantar Ilmu Komunikasi</option>
+              <option value="img/manajemen_keuangan.jpg">Manajemen Keuangan</option>
+              <option value="img/kepemimpinan.jpg">Kepemimpinan</option>
+              <option value="img/mikrobiologi.jpg">Mikrobiologi Dasar</option>
+              <option value="img/paud_perkembangan.jpg">Perkembangan Anak Usia Dini</option>
+            </select>
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modalTambahStok')">Batal</button>
+          <button type="submit" class="btn btn-navy btn-sm">Simpan</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <div id="modalDetailCover" class="modal">
+    <div class="modal-dialog" style="max-width: 420px; text-align: center;">
+      <header class="modal-header">
+        <h3 class="modal-title">Data Bahan Ajar</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modalDetailCover')">&times;</button>
+      </header>
+
+      <div class="modal-body">
+        <figure style="margin-bottom: 12px;">
+          <img id="modalDetailImg" src="img/pengantar_komunikasi.jpg" alt="Cover Buku"
+            style="width: 140px; height: 190px; object-fit: cover; border: 1px solid #cccccc; border-radius: 4px;">
+          <figcaption id="modalDetailJudul"
+            style="font-weight: bold; color: #003b73; margin-top: 8px; font-size: 16px;">Judul</figcaption>
+        </figure>
+
+        <section
+          style="background-color: #f9f9f9; padding: 10px; border-radius: 4px; border: 1px solid #e0e0e0; text-align: left;">
+          <div class="detail-row">
+            <span style="color: #666666;">Kode Lokasi:</span>
+            <strong id="modalDetailLokasi">-</strong>
+          </div>
+          <div class="detail-row">
+            <span style="color: #666666;">Kode Barang:</span>
+            <strong id="modalDetailKode">-</strong>
+          </div>
+          <div class="detail-row">
+            <span style="color: #666666;">Jenis:</span>
+            <strong id="modalDetailJenis">-</strong>
+          </div>
+          <div class="detail-row">
+            <span style="color: #666666;">Edisi:</span>
+            <strong id="modalDetailEdisi">-</strong>
+          </div>
+          <div class="detail-row" style="border-bottom: none;">
+            <span style="color: #666666;">Stok:</span>
+            <strong id="modalDetailStok" style="color: #03543f;">-</strong>
+          </div>
+        </section>
+      </div>
+
+      <footer class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modalDetailCover')">Tutup</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
